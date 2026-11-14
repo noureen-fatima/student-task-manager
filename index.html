@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Student Task Manager</title>
   <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
 </head>
 <body>
   <main>
@@ -20,6 +21,12 @@
       </p>
       <button type="submit">Add task</button>
     </form>
+
+    <section aria-labelledby="task-list-heading">
+      <h2 id="task-list-heading">Tasks</h2>
+      <p id="empty-state">No tasks added yet.</p>
+      <ul id="task-list"></ul>
+    </section>
   </main>
 </body>
 </html>
