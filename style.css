@@ -75,7 +75,7 @@ textarea:focus {
 }
 
 button {
-  padding: 0.7rem 1.1rem;
+  padding: 0.7rem 1rem;
   color: #ffffff;
   font: inherit;
   font-weight: 600;
@@ -105,32 +105,90 @@ button:focus-visible {
 
 .task-list {
   display: grid;
-  gap: 1rem;
+  gap: 0.75rem;
+  padding: 0;
   margin-block: 1.5rem;
+  list-style: none;
 }
 
 .task-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
   padding: 1rem 1.125rem;
   background: #ffffff;
   border: 1px solid #e2e8f0;
   border-radius: 0.75rem;
   box-shadow: 0 0.25rem 0.75rem rgb(15 23 42 / 5%);
+  transition: background-color 150ms ease, border-color 150ms ease;
 }
 
-.task-card h2,
+.task-details {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.875rem;
+  min-width: 0;
+}
+
 .task-card h3 {
-  margin: 0 0 0.5rem;
-  font-size: 1.125rem;
+  margin: 0;
+  font-size: 1.05rem;
 }
 
-.task-card p {
+.task-description {
+  flex: 1 1 10rem;
+  min-width: 0;
   margin: 0;
   color: #475569;
   line-height: 1.5;
+  overflow-wrap: anywhere;
 }
 
-.task-card button {
-  margin-top: 1rem;
+.task-status {
+  padding: 0.2rem 0.55rem;
+  color: #475569;
+  font-size: 0.8rem;
+  font-weight: 600;
+  background: #e2e8f0;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.task-card.completed {
+  background: #dcfce7;
+  border-color: #4ade80;
+}
+
+.task-card.completed h3 {
+  color: #166534;
+  text-decoration: line-through;
+}
+
+.task-card.completed .task-status {
+  color: #166534;
+  background: #bbf7d0;
+}
+
+.task-actions {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.task-actions button {
+  white-space: nowrap;
+}
+
+.task-actions button:last-child {
+  background: #64748b;
+}
+
+.task-actions button:last-child:hover {
+  background: #475569;
 }
 
 @media (max-width: 600px) {
@@ -150,10 +208,25 @@ button:focus-visible {
   #task-form button {
     width: 100%;
   }
+
+  .task-card {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .task-details {
+    flex-basis: 100%;
+  }
+
+  .task-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  button {
+  button,
+  .task-card {
     transition: none;
   }
 }
