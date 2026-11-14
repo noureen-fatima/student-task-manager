@@ -106,7 +106,9 @@ button:focus-visible {
 .task-list {
   display: grid;
   gap: 1rem;
+  padding: 0;
   margin-block: 1.5rem;
+  list-style: none;
 }
 
 .task-card {
@@ -130,7 +132,10 @@ button:focus-visible {
 }
 
 .task-card button {
+  display: block;
+  width: fit-content;
   margin-top: 1rem;
+  margin-left: auto;
 }
 
 @media (max-width: 600px) {
