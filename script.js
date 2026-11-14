@@ -3,6 +3,31 @@ const titleInput = document.querySelector("#task-title");
 const descriptionInput = document.querySelector("#task-description");
 const taskList = document.querySelector("#task-list");
 const emptyState = document.querySelector("#empty-state");
+const searchForm = document.querySelector("#search-form");
+const searchInput = document.querySelector("#task-search");
+const noSearchResults = document.querySelector("#no-search-results");
+
+function filterTasks() {
+  const query = searchInput.value.trim().toLocaleLowerCase();
+  const tasks = [...taskList.children];
+  let visibleTaskCount = 0;
+
+  tasks.forEach((task) => {
+    const matches = task.dataset.searchText.includes(query);
+    task.hidden = !matches;
+    if (matches) {
+      visibleTaskCount += 1;
+    }
+  });
+
+  emptyState.hidden = tasks.length > 0;
+  noSearchResults.hidden = tasks.length === 0 || visibleTaskCount > 0;
+}
+
+searchForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  filterTasks();
+});
 
 titleInput.addEventListener("input", () => {
   titleInput.setCustomValidity("");
@@ -32,6 +57,7 @@ taskForm.addEventListener("submit", (event) => {
   taskDetails.append(status);
 
   const description = descriptionInput.value.trim();
+  task.dataset.searchText = `${title} ${description}`.toLocaleLowerCase();
   if (description) {
     const taskDescription = document.createElement("p");
     taskDescription.classList.add("task-description");
@@ -61,13 +87,13 @@ taskForm.addEventListener("submit", (event) => {
   removeButton.setAttribute("aria-label", `Remove ${title}`);
   removeButton.addEventListener("click", () => {
     task.remove();
-    emptyState.hidden = taskList.children.length > 0;
+    filterTasks();
   });
   taskActions.append(removeButton);
   task.append(taskActions);
 
   taskList.append(task);
-  emptyState.hidden = true;
+  filterTasks();
   taskForm.reset();
   titleInput.focus();
 });
