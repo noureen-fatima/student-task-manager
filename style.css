@@ -103,6 +103,19 @@ button:focus-visible {
   outline-offset: 3px;
 }
 
+#search-form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.75rem;
+  align-items: end;
+  margin-bottom: 1rem;
+}
+
+#search-form label {
+  grid-column: 1 / -1;
+  margin-bottom: -0.5rem;
+}
+
 .task-list {
   display: grid;
   gap: 0.75rem;
@@ -122,6 +135,10 @@ button:focus-visible {
   border-radius: 0.75rem;
   box-shadow: 0 0.25rem 0.75rem rgb(15 23 42 / 5%);
   transition: background-color 150ms ease, border-color 150ms ease;
+}
+
+.task-card[hidden] {
+  display: none;
 }
 
 .task-details {
@@ -206,6 +223,14 @@ button:focus-visible {
   }
 
   #task-form button {
+    width: 100%;
+  }
+
+  #search-form {
+    grid-template-columns: 1fr;
+  }
+
+  #search-form button {
     width: 100%;
   }
 

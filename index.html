@@ -24,7 +24,13 @@
 
     <section aria-labelledby="task-list-heading">
       <h2 id="task-list-heading">Tasks</h2>
+      <form id="search-form" role="search">
+        <label for="task-search">Search tasks</label>
+        <input id="task-search" name="query" type="search">
+        <button type="submit">Search</button>
+      </form>
       <p id="empty-state">No tasks added yet.</p>
+      <p id="no-search-results" role="status" hidden>No matching tasks found.</p>
       <ul id="task-list" class="task-list"></ul>
     </section>
   </main>
