@@ -19,6 +19,7 @@ taskForm.addEventListener("submit", (event) => {
   }
 
   const task = document.createElement("li");
+  task.classList.add("task-card");
   const taskTitle = document.createElement("h3");
   taskTitle.textContent = title;
   task.append(taskTitle);
@@ -29,6 +30,16 @@ taskForm.addEventListener("submit", (event) => {
     taskDescription.textContent = description;
     task.append(taskDescription);
   }
+
+  const removeButton = document.createElement("button");
+  removeButton.type = "button";
+  removeButton.textContent = "Remove";
+  removeButton.setAttribute("aria-label", `Remove ${title}`);
+  removeButton.addEventListener("click", () => {
+    task.remove();
+    emptyState.hidden = taskList.children.length > 0;
+  });
+  task.append(removeButton);
 
   taskList.append(task);
   emptyState.hidden = true;
