@@ -20,16 +20,40 @@ taskForm.addEventListener("submit", (event) => {
 
   const task = document.createElement("li");
   task.classList.add("task-card");
+  const taskDetails = document.createElement("div");
+  taskDetails.classList.add("task-details");
   const taskTitle = document.createElement("h3");
   taskTitle.textContent = title;
-  task.append(taskTitle);
+  taskDetails.append(taskTitle);
+
+  const status = document.createElement("span");
+  status.classList.add("task-status");
+  status.textContent = "Status: Incomplete";
+  taskDetails.append(status);
 
   const description = descriptionInput.value.trim();
   if (description) {
     const taskDescription = document.createElement("p");
+    taskDescription.classList.add("task-description");
     taskDescription.textContent = description;
-    task.append(taskDescription);
+    taskDetails.append(taskDescription);
   }
+
+  task.append(taskDetails);
+  const taskActions = document.createElement("div");
+  taskActions.classList.add("task-actions");
+
+  const completeButton = document.createElement("button");
+  completeButton.type = "button";
+  completeButton.textContent = "Mark complete";
+  completeButton.setAttribute("aria-pressed", "false");
+  completeButton.addEventListener("click", () => {
+    const isComplete = task.classList.toggle("completed");
+    status.textContent = `Status: ${isComplete ? "Completed" : "Incomplete"}`;
+    completeButton.textContent = isComplete ? "Undo completion" : "Mark complete";
+    completeButton.setAttribute("aria-pressed", String(isComplete));
+  });
+  taskActions.append(completeButton);
 
   const removeButton = document.createElement("button");
   removeButton.type = "button";
@@ -39,7 +63,8 @@ taskForm.addEventListener("submit", (event) => {
     task.remove();
     emptyState.hidden = taskList.children.length > 0;
   });
-  task.append(removeButton);
+  taskActions.append(removeButton);
+  task.append(taskActions);
 
   taskList.append(task);
   emptyState.hidden = true;
